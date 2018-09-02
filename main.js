@@ -116,16 +116,17 @@ function main(){
   //Requests to the google api should be called (and defined maybe?) here
   //TODO check what the proper practice is on nested functions
 
-  document.querySelector(".dummy").innerHTML = "Authorized, click here"
-  document.querySelector(".dummy").addEventListener('click', function(){
-    console.log("clicked")
-    this.innerHTML = "Changed"
-    makeRequest("writeTest!A1:B").then(function(response){
-      var range = ("writeTest!C1:D");
-      writeSheet(range,response.result.values)
-    });
-
-  });
+  document.querySelector(".dummy").innerHTML = "Authorized, you can now modify the spreadsheet through this input field"
+  // document.querySelector(".dummy").addEventListener('click', function(){
+  //   console.log("clicked")
+  //   this.innerHTML = "Changed"
+  //   document.querySelector("#textField").value = "test";
+  //   makeRequest("writeTest!A1:B").then(function(response){
+  //     var range = ("writeTest!C1:D");
+  //     writeSheet(range,response.result.values)
+  //   });
+  //
+  // });
 
   function writeSheet(range,values){
     /*
@@ -161,10 +162,17 @@ function main(){
       makeRequest(cell in A1 notation including sheet name).then(function(response){
     });
     or pass a seperate function
+    values are at response.result.values
     */
   }
 
-  listMajors();
-  writeSheet("writeTest!D1:F",[[1,2],[3,4],[5],[6],[7,8,9]])
-
+  // writeSheet("writeTest!D1:F",[[1,2],[3,4],[5],[6],[7,8,9]])
+  document.querySelector("#textField").addEventListener("change",function(){
+    var cellValue = document.querySelector("#textField").value;
+    writeSheet("writeTest!A1",[[cellValue]]);
+  });
+  makeRequest("writeTest!A1").then(function(response){
+    var cellValue = response.result.values[0][0];
+    document.querySelector("#textField").value = cellValue
+  });
 }

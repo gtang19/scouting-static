@@ -1,0 +1,15 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Raleway', sans-serif;
+  color: #333;
+  text-align: center;
+}
+
+p {
+  margin: 10px;
+  font-size: 14px;
+}
